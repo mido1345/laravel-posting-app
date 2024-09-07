@@ -14,7 +14,7 @@ class PostController extends Controller
     // 一覧ページ
     public function index()
     {
-        $posts = Auth::user()->posts()->orderBy('created_at', 'desc')->get();
+        $posts = Auth::user()->posts()->orderBy('updated_at', 'asc')->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -65,6 +65,7 @@ class PostController extends Controller
         }
         $request->validate([
             'title' => 'max:40',
+            'content' => 'max:200'
         ]);
         $post->title = $request->input('title');
         $post->content = $request->input('content');
